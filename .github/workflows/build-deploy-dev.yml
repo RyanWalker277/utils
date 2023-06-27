@@ -48,7 +48,7 @@ jobs:
 
 
       - name: Deploy
-        run: mvn clean install -Pgithub deploy
+        run: mvn clean install -Pgithub deploy --batch-mode -DreleaseVersion=${{ steps.version.outputs.VERSION }}-SNAPSHOT
         env:
           GITHUB_USERNAME: ${{ secrets.USERNAME }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
