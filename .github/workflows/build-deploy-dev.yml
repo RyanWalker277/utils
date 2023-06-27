@@ -4,12 +4,19 @@ name: Github Package
 on:
   push:
     tags:
-      ["v*.*.*", "v*.*.*-*"]
+      - "v*.*.*"
+      - "v*.*.*-*"
     branches:
-      ["release-4.*.*", "release-5.*.*", "release-v2.*.*", "development"]
+      - "release-4.*.*"
+      - "release-5.*.*"
+      - "release-v2.*.*"
+      - "development"
   pull_request:
     branches:
-      ["release-4.*.*", "release-5.*.*", "release-v2.*.*", "development"]
+      - "release-4.*.*"
+      - "release-5.*.*"
+      - "release-v2.*.*"
+      - "development"
 
 jobs:
   build-deploy-github:
@@ -41,14 +48,13 @@ jobs:
       - name: Delete package specific version
         uses: smartsquaregmbh/delete-old-packages@v0.4.0
         with:
-          version: ${{ steps.version.outputs.VERSION }}-SNAPSHOT
+          version: 2.2.6-SNAPSHOT
           names: |
             com.uci.utils
           token: ${{ secrets.TOKEN }}
 
-
       - name: Deploy
-        run: mvn clean install -Pgithub deploy --batch-mode -DreleaseVersion=${{ steps.version.outputs.VERSION }}-SNAPSHOT
+        run: mvn clean install -Pgithub deploy --batch-mode -DreleaseVersion=2.2.6-SNAPSHOT
         env:
           GITHUB_USERNAME: ${{ secrets.USERNAME }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
